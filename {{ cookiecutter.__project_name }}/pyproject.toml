@@ -1,0 +1,196 @@
+[tool.poetry]
+name = "{{cookiecutter.project_name }}"
+version = "0.1.0"
+description = ""
+authors = ["{{cookiecutter.author_name}} <{{cookiecutter.author_email}}>"]
+readme = "README.md"
+packages = [{include = "{{cookiecutter.__package_name}}"}]
+
+[tool.poetry.dependencies]
+beartype = "^0.12.0"
+icontract = "^2.6.2"
+python = "^3.11"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2.2"
+pytest-cov = "^4.0.0"
+
+
+[tool.poetry.group.lint.dependencies]
+mypy = "^1.1.1"
+black = "^23.1.0"
+isort = "^5.12.0"
+pre-commit = "^3.1.1"
+ruff = "^0.0.254"
+
+
+[tool.pytest.ini_options]
+minversion = "7.2"
+addopts = [
+    "-ra",
+    "-vvv",
+    "-l",
+    "--doctest-modules",
+    "--color=yes",
+    "--code-highlight=yes",
+    "--cov",
+    "--cov-branch",
+    "--cov-fail-under=100",
+    "--no-cov-on-fail",
+]
+testpaths = [".", "tests"]
+doctest_optionflags = [
+    "NORMALIZE_WHITESPACE",
+    "ELLIPSIS"
+]
+python_functions = ["it_*", "test_*"]
+log_cli = true
+log_cli_level = "WARNING"
+log_auto_indent = true
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+force_grid_wrap = 2
+
+[tool.ruff]
+select = [
+    "A",
+    "ANN",
+    "ARG",
+    "B",
+    "BLE",
+    "C",
+    "C4",
+    "COM",
+    "D",
+    "DTZ",
+    "E",
+    "ERA",
+    "F",
+    "FBT",
+    "G",
+    "I",
+    "INP",
+    "N",
+    "PGH",
+    "PIE",
+    "PLE",
+    "PLR",
+    "PT",
+    "PTH",
+    "Q",
+    "RSE",
+    "RET",
+    "S",
+    "SIM",
+    "SLF",
+    "T20",
+    "TID",
+    "TCH",
+    "W",
+    "YTT"
+]
+ignore = [
+    "ANN101",  # TODO: Remove this once beartype supports the Self type.
+    "TCH001",  # Since we use beartype, our type checks happen at runtime, so we don't want htem in a type-checking block
+]
+
+fixable = [
+    "A",
+    "ANN",
+    "B",
+    "C4",
+    "COM",
+    "D",
+    "E",
+    "F",
+    "G",
+    "I",
+    "PIE",
+    "PLR",
+    "PLW",
+    "PT",
+    "Q",
+    "RET",
+    "RSE",
+    "RUF",
+    "SIM",
+    "TCH",
+    "TID",
+    "TRY",
+    "W"
+]
+unfixable = []
+
+fix = true
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+# Same as Black.
+line-length = 120
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["E402"]
+"tests/**/*.py" = ["ANN201", "ANN001", "D100", "D103", "S101"]
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+multiline-quotes = "single"
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
+
+[tool.mypy]
+strict = true
+disallow_untyped_defs = true
+disallow_any_unimported = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+show_error_codes = true
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

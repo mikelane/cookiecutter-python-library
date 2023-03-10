@@ -1,0 +1,13 @@
+{
+  "project_name": "My Python Library",
+  "__project_name": "{{ cookiecutter.project_name.lower().split() | join('-') }}",
+  "__package_name": "{{ cookiecutter.project_name.lower().split() | join('_') }}",
+  "author_name": "John Doe",
+  "author_email": "jdoe@email.com",
+  "short_description": "A basic python library",
+  "long_description": "Your description here",
+  "license": [
+    "MIT",
+    "Apache-2.0"
+  ]
+}
