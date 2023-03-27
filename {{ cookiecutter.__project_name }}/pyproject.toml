@@ -9,6 +9,7 @@ packages = [{include = "{{cookiecutter.__package_name}}"}]
 [tool.poetry.dependencies]
 beartype = "^0.12.0"
 icontract = "^2.6.2"
+pydantic = "^1.10.7"
 python = "^3.11"
 
 
@@ -34,11 +35,15 @@ addopts = [
     "--doctest-modules",
     "--color=yes",
     "--code-highlight=yes",
-    "--cov",
-    "--cov-branch",
-    "--cov-fail-under=100",
-    "--no-cov-on-fail",
+    # coverage makes the pycharm debugger not work
+    #    "--cov",
+    #    "--cov-branch",
+    #    "--cov-fail-under=100",
+    #    "--no-cov-on-fail",
+    "--log-disable=faker",
+    "--log-disable=asyncio",
 ]
+
 testpaths = [".", "tests"]
 doctest_optionflags = [
     "NORMALIZE_WHITESPACE",
@@ -100,6 +105,7 @@ select = [
 ignore = [
     "ANN101",  # TODO: Remove this once beartype supports the Self type.
     "TCH001",  # Since we use beartype, our type checks happen at runtime, so we don't want htem in a type-checking block
+    "PLE1205",  # Loguru uses template strings, so this error is not applicable.
 ]
 
 fixable = [
@@ -181,6 +187,7 @@ required-imports = ["from __future__ import annotations"]
 ban-relative-imports = "all"
 
 [tool.mypy]
+plugins = ["pydantic.mypy"]
 strict = true
 disallow_untyped_defs = true
 disallow_any_unimported = true
