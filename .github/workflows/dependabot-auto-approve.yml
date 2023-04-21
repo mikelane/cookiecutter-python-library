@@ -1,4 +1,4 @@
-ame: Dependabot reviewer
+name: Dependabot reviewer
 
 on: pull_request_target
 
