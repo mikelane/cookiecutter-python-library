@@ -1,6 +1,8 @@
 name: Dependabot reviewer
 
-on: pull_request_target
+on: 
+  - pull_request_target
+  - workflow_dispatch
 
 permissions:
   pull-requests: write
