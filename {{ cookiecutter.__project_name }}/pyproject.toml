@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "{{cookiecutter.__package_name}}"}]
 
 [tool.poetry.dependencies]
-beartype = "^0.13.1"
+beartype = "^0.14.0"
 icontract = "^2.6.2"
 pydantic = "^1.10.7"
 python = "^3.11"
