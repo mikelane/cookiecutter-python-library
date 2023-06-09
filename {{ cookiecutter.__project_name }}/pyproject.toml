@@ -9,6 +9,7 @@ packages = [{include = "{{cookiecutter.__package_name}}"}]
 [tool.poetry.dependencies]
 beartype = "^0.14.1"
 icontract = "^2.6.2"
+loguru = "^0.7.0"
 pydantic = "^1.10.9"
 python = "^3.11"
 
@@ -27,7 +28,7 @@ ruff = "^0.0.272"
 
 
 [tool.pytest.ini_options]
-minversion = "7.2"
+minversion = "7.3"
 addopts = [
     "-ra",
     "-vvv",
@@ -60,6 +61,7 @@ target-version = ['py311']
 skip-string-normalization = true
 
 [tool.isort]
+line_length = 120
 profile = "black"
 multi_line_output = 3
 force_grid_wrap = 2
@@ -106,33 +108,11 @@ ignore = [
     "ANN101",  # TODO: Remove this once beartype supports the Self type.
     "TCH001",  # Since we use beartype, our type checks happen at runtime, so we don't want htem in a type-checking block
     "PLE1205",  # Loguru uses template strings, so this error is not applicable.
+	"D203",  # Ignore this since it conflicts with D211,
+    "D213",  # Ignore this since it conflicts with D212,
 ]
 
-fixable = [
-    "A",
-    "ANN",
-    "B",
-    "C4",
-    "COM",
-    "D",
-    "E",
-    "F",
-    "G",
-    "I",
-    "PIE",
-    "PLR",
-    "PLW",
-    "PT",
-    "Q",
-    "RET",
-    "RSE",
-    "RUF",
-    "SIM",
-    "TCH",
-    "TID",
-    "TRY",
-    "W"
-]
+fixable = ["ALL"]
 unfixable = []
 
 fix = true
@@ -168,7 +148,7 @@ target-version = "py311"
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["E402"]
-"tests/**/*.py" = ["ANN201", "ANN001", "D100", "D103", "S101"]
+"tests/**/*.py" = ["ANN201", "ANN001", "D100", "D103", "D104", "S101"]
 
 [tool.ruff.flake8-quotes]
 docstring-quotes = "double"

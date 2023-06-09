@@ -8,8 +8,9 @@ quired for your project.
 from __future__ import annotations
 
 from beartype import beartype
+from loguru import logger
 
-@beartype()
+@beartype
 def get_hello(name: str) -> str:
     """Get A Hello String
 
@@ -31,4 +32,5 @@ def get_hello(name: str) -> str:
 
 
 if __name__ == '__main__':
-    print(get_hello('{{ cookiecutter.author_name }}'))
+    logger.info(get_hello('{{ cookiecutter.author_name }}'))
+
