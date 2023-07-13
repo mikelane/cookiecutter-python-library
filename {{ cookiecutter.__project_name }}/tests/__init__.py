@@ -1,1 +1,1 @@
-""" Test {{ cookiecutter.project_name }}"""
+""" Test {{ cookiecutter.project_name }}."""

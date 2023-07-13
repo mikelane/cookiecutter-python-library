@@ -12,7 +12,7 @@ from loguru import logger
 
 @beartype
 def get_hello(name: str) -> str:
-    """Get A Hello String
+    """Get A Hello String.
 
     >>> get_hello('world')
     'Hello, world!'
