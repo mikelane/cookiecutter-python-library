@@ -8,7 +8,7 @@ packages = [{include = "{{cookiecutter.__package_name}}"}]
 
 [tool.poetry.dependencies]
 beartype = "^0.16.2"
-icontract = "^2.6.3"
+icontract = "^2.6.4"
 loguru = "^0.7.2"
 pydantic = "^2.4"
 python = "^3.11"
