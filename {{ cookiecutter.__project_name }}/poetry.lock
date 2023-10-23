@@ -30,13 +30,13 @@ test = ["astroid", "pytest"]
 
 [[package]]
 name = "beartype"
-version = "0.16.3"
+version = "0.16.4"
 description = "Unbearably fast runtime type checking in pure Python."
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "beartype-0.16.3-py3-none-any.whl", hash = "sha256:dc7b3fd28d4998771b4ff8eb41eccb70aa665a8dd505b8db43ba03c191450dd6"},
-    {file = "beartype-0.16.3.tar.gz", hash = "sha256:085591b5b77807229b65a137fd473c6891c45287fe0ca6565b3250dead00380b"},
+    {file = "beartype-0.16.4-py3-none-any.whl", hash = "sha256:64865952f9dff1e17f22684b3c7286fc79754553b47eaefeb1286224ae8c1bd9"},
+    {file = "beartype-0.16.4.tar.gz", hash = "sha256:1ada89cf2d6eb30eb6e156eed2eb5493357782937910d74380918e53c2eae0bf"},
 ]
 
 [package.extras]
@@ -754,4 +754,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3880044b7ba131255bd032e94843226699744ecda0c101e38de2f9ded5ad7a30"
+content-hash = "db6bd896539e5e23f434a5079ccffbf129cf0268a149118d3c9b7752cb0898bf"
