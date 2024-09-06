@@ -10,7 +10,7 @@ packages = [{include = "{{cookiecutter.__package_name}}"}]
 beartype = "^0.18.5"
 icontract = "^2.6.6"
 loguru = "^0.7.2"
-pydantic = "^2.8"
+pydantic = "^2.9"
 python = "^3.11"
 
 
