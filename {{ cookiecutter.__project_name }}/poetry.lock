@@ -217,13 +217,13 @@ testing = ["covdefaults (>=2.3)", "coverage (>=7.2.2)", "diff-cover (>=7.5)", "p
 
 [[package]]
 name = "icontract"
-version = "2.6.6"
+version = "2.7.0"
 description = "Provide design-by-contract with informative violation messages."
 optional = false
 python-versions = "*"
 files = [
-    {file = "icontract-2.6.6-py3-none-any.whl", hash = "sha256:1ba4e88f909d3a4b97a565e1ea1199e5b050aa4bdad190c69086bfaed9680cc2"},
-    {file = "icontract-2.6.6.tar.gz", hash = "sha256:c1fd55c7709ef18a2ee64313fe863be2668b53060828fcca3525051160c92691"},
+    {file = "icontract-2.7.0-py3-none-any.whl", hash = "sha256:1284ad1ab2d8729378754b9a2cfca99d265659e7a3d33b5b7ce3409434484013"},
+    {file = "icontract-2.7.0.tar.gz", hash = "sha256:5f545e6e0c4982b7b39a7cb89921ac1da2dfbd50c3e0b213b96c718f45962af2"},
 ]
 
 [package.dependencies]
@@ -231,7 +231,7 @@ asttokens = ">=2,<3"
 typing-extensions = "*"
 
 [package.extras]
-dev = ["astor (==0.8.1)", "asyncstdlib (==3.9.1)", "black (==23.9.1)", "coverage (>=4.5.1,<5)", "deal (>=4,<5)", "docutils (>=0.14,<1)", "dpcontracts (==0.6.0)", "mypy (==1.5.1)", "numpy (>=1,<2)", "py-cpuinfo (>=5.0.0,<6)", "pydocstyle (>=6.3.0,<7)", "pygments (>=2.2.0,<3)", "pylint (==2.17.5)", "tabulate (>=0.8.7,<1)", "tox (>=3.0.0)", "typeguard (>=2,<5)"]
+dev = ["astor (==0.8.1)", "asyncstdlib (==3.9.1)", "black (==23.9.1)", "coverage (>=6.5.0,<7)", "deal (>=4,<5)", "docutils (>=0.14,<1)", "dpcontracts (==0.6.0)", "mypy (==1.5.1)", "numpy (>=1,<2)", "py-cpuinfo (>=5.0.0,<6)", "pydocstyle (>=6.3.0,<7)", "pygments (>=2.2.0,<3)", "pylint (==2.17.5)", "tabulate (>=0.8.7,<1)", "tox (>=3.0.0)", "typeguard (>=2,<5)"]
 
 [[package]]
 name = "identify"
@@ -744,4 +744,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "efa5a0351e068711319fbb3a61d93db4d1eaeb77a9ea675d604babe82b6ae962"
+content-hash = "692e785cf270681eacaa7102735441deba69ad275cc3c394697e6460ab1d2b37"
