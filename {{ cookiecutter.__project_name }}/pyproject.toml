@@ -20,7 +20,7 @@ pytest-cov = "^6.0.0"
 
 
 [tool.poetry.group.lint.dependencies]
-mypy = "^1.14.1"
+mypy = "^1.15.0"
 black = "^25.1.0"
 isort = "^6.0.0"
 pre-commit = "^4.1.0"
