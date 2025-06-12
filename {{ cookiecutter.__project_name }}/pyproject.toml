@@ -16,7 +16,7 @@ python = "^3.11"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.4.0"
-pytest-cov = "^6.1.1"
+pytest-cov = "^6.2.0"
 
 
 [tool.poetry.group.lint.dependencies]
