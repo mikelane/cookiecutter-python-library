@@ -32,21 +32,21 @@ test = ["astroid", "pytest"]
 
 [[package]]
 name = "beartype"
-version = "0.21.0"
+version = "0.22.2"
 description = "Unbearably fast near-real-time hybrid runtime-static type-checking in pure Python."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "beartype-0.21.0-py3-none-any.whl", hash = "sha256:b6a1bd56c72f31b0a496a36cc55df6e2f475db166ad07fa4acc7e74f4c7f34c0"},
-    {file = "beartype-0.21.0.tar.gz", hash = "sha256:f9a5078f5ce87261c2d22851d19b050b64f6a805439e8793aecf01ce660d3244"},
+    {file = "beartype-0.22.2-py3-none-any.whl", hash = "sha256:12077afe3528eba5c5b801f816712f7ff06f6da5509994c79561e29b48bcedb8"},
+    {file = "beartype-0.22.2.tar.gz", hash = "sha256:ff3a7df26af8d15fa87f97934f0f6d41bbdadca971c410819104998dd26013d2"},
 ]
 
 [package.extras]
-dev = ["autoapi (>=0.9.0)", "click", "coverage (>=5.5)", "equinox ; sys_platform == \"linux\"", "jax[cpu] ; sys_platform == \"linux\"", "jaxtyping ; sys_platform == \"linux\"", "langchain", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\"", "numba ; python_version < \"3.13.0\"", "numpy ; sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera", "pydata-sphinx-theme (<=0.7.2)", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "sphinx", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)", "sqlalchemy", "tox (>=3.20.1)", "typing-extensions (>=3.10.0.0)", "xarray"]
-doc-rtd = ["autoapi (>=0.9.0)", "pydata-sphinx-theme (<=0.7.2)", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)"]
-test = ["click", "coverage (>=5.5)", "equinox ; sys_platform == \"linux\"", "jax[cpu] ; sys_platform == \"linux\"", "jaxtyping ; sys_platform == \"linux\"", "langchain", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\"", "numba ; python_version < \"3.13.0\"", "numpy ; sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "sphinx", "sqlalchemy", "tox (>=3.20.1)", "typing-extensions (>=3.10.0.0)", "xarray"]
-test-tox = ["click", "equinox ; sys_platform == \"linux\"", "jax[cpu] ; sys_platform == \"linux\"", "jaxtyping ; sys_platform == \"linux\"", "langchain", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\"", "numba ; python_version < \"3.13.0\"", "numpy ; sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "sphinx", "sqlalchemy", "typing-extensions (>=3.10.0.0)", "xarray"]
+dev = ["autoapi (>=0.9.0)", "celery", "click", "coverage (>=5.5)", "equinox ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "fastmcp ; python_version > \"3.9.0\" and python_version < \"3.14.0\"", "jax[cpu] ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "jaxtyping ; sys_platform == \"linux\"", "langchain ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "numba ; python_version < \"3.14.0\"", "numpy ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera (>=0.26.0) ; python_version < \"3.14.0\"", "polars ; python_version < \"3.14.0\"", "pydata-sphinx-theme (<=0.7.2)", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "setuptools", "sphinx", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)", "sqlalchemy", "torch ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "tox (>=3.20.1)", "typer", "typing-extensions (>=3.10.0.0)", "xarray ; python_version < \"3.14.0\""]
+doc-rtd = ["autoapi (>=0.9.0)", "pydata-sphinx-theme (<=0.7.2)", "setuptools", "sphinx (>=4.2.0,<6.0.0)", "sphinxext-opengraph (>=0.7.5)"]
+test = ["celery", "click", "coverage (>=5.5)", "equinox ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "fastmcp ; python_version > \"3.9.0\" and python_version < \"3.14.0\"", "jax[cpu] ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "jaxtyping ; sys_platform == \"linux\"", "langchain ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "numba ; python_version < \"3.14.0\"", "numpy ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera (>=0.26.0) ; python_version < \"3.14.0\"", "polars ; python_version < \"3.14.0\"", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "sphinx", "sqlalchemy", "torch ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "tox (>=3.20.1)", "typer", "typing-extensions (>=3.10.0.0)", "xarray ; python_version < \"3.14.0\""]
+test-tox = ["celery", "click", "equinox ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "fastmcp ; python_version > \"3.9.0\" and python_version < \"3.14.0\"", "jax[cpu] ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "jaxtyping ; sys_platform == \"linux\"", "langchain ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "mypy (>=0.800) ; platform_python_implementation != \"PyPy\"", "nuitka (>=1.2.6) ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "numba ; python_version < \"3.14.0\"", "numpy ; python_version < \"3.14.0\" and sys_platform != \"darwin\" and platform_python_implementation != \"PyPy\"", "pandera (>=0.26.0) ; python_version < \"3.14.0\"", "polars ; python_version < \"3.14.0\"", "pygments", "pyright (>=1.1.370)", "pytest (>=4.0.0)", "rich-click", "sphinx", "sqlalchemy", "torch ; sys_platform == \"linux\" and python_version < \"3.14.0\"", "typer", "typing-extensions (>=3.10.0.0)", "xarray ; python_version < \"3.14.0\""]
 test-tox-coverage = ["coverage (>=5.5)"]
 
 [[package]]
@@ -890,4 +890,4 @@ dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "82f8e75de20f5ed4d28bd06f551ad37f482002dff2724dc9d0d1b5c5935a3807"
+content-hash = "0356cd4283e234b612fa4424b75adbed6caab4eee379fb38bbd5bab81c33b0f6"
