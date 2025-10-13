@@ -24,7 +24,7 @@ mypy = "^1.18.2"
 black = "^25.9.0"
 isort = "^7.0.0"
 pre-commit = "^4.3.0"
-ruff = "^0.13.3"
+ruff = "^0.14.0"
 
 
 [tool.pytest.ini_options]
