@@ -272,22 +272,22 @@ typing = ["typing-extensions (>=4.12.2) ; python_version < \"3.11\""]
 
 [[package]]
 name = "icontract"
-version = "2.7.1"
+version = "2.7.2"
 description = "Provide design-by-contract with informative violation messages."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "icontract-2.7.1-py3-none-any.whl", hash = "sha256:aac4073aebb117f16dcb73b8496209a247fc6b153f203a0648d1065ff8bb81af"},
-    {file = "icontract-2.7.1.tar.gz", hash = "sha256:2e8196754743bd1a3659d66da2ddf1dc0950d01e535c2933bd997b02c6412a03"},
+    {file = "icontract-2.7.2-py3-none-any.whl", hash = "sha256:2eb86290ef1d2d8c7af157361d419f178b3eb5b4c72a292c5722fa6fd40a1e0a"},
+    {file = "icontract-2.7.2.tar.gz", hash = "sha256:281ec16f1d09bbcca7a4227e82cd10b4d5fb291f638df77c29b7acf493dd3178"},
 ]
 
 [package.dependencies]
 asttokens = ">=2,<3"
-typing-extensions = "*"
+typing_extensions = "*"
 
 [package.extras]
-dev = ["astor (==0.8.1)", "asyncstdlib (==3.9.1) ; python_version >= \"3.8\"", "black (==23.9.1) ; python_version >= \"3.8\"", "coverage (>=6.5.0,<7)", "deal (>=4,<5) ; python_version >= \"3.8\"", "docutils (>=0.14,<1)", "dpcontracts (==0.6.0)", "mypy (==1.5.1) ; python_version >= \"3.8\"", "numpy (>=1,<2)", "py-cpuinfo (>=5.0.0,<6)", "pydocstyle (>=6.3.0,<7)", "pygments (>=2.2.0,<3)", "pylint (==2.17.5) ; python_version >= \"3.7\"", "tabulate (>=0.8.7,<1)", "tox (>=3.0.0)", "typeguard (>=2,<5)"]
+dev = ["astor (==0.8.1)", "asyncstdlib (==3.9.1) ; python_version >= \"3.8\"", "black (==23.9.1) ; python_version >= \"3.8\"", "coverage (>=6.5.0,<7)", "deal (>=4,<5) ; python_version >= \"3.8\"", "docutils (>=0.14,<1)", "dpcontracts (==0.6.0)", "mypy (==1.18.2) ; python_version >= \"3.12\"", "mypy (==1.5.1) ; python_version >= \"3.8\" and python_version < \"3.12\"", "numpy (>=1,<2)", "py-cpuinfo (>=5.0.0,<6)", "pydocstyle (>=6.3.0,<7)", "pygments (>=2.2.0,<3)", "pylint (==2.17.5) ; python_version >= \"3.7\" and python_version < \"3.12\"", "pylint (==4.0.2) ; python_version >= \"3.12\"", "tabulate (>=0.8.7,<1)", "tox (>=3.0.0)", "typeguard (>=2,<5)"]
 
 [[package]]
 name = "identify"
@@ -917,4 +917,4 @@ dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "4f3e4526a4724eb14f839f32a4f74a2eae37f0fde2691199b09c56891319fdd3"
+content-hash = "e0b1ee36854c3db138582deac1d3248f097419b847e7457e78b780477d663e07"
