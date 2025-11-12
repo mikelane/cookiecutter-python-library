@@ -4,10 +4,42 @@
   "__package_name": "{{ cookiecutter.project_name.lower().split() | join('_') }}",
   "author_name": "John Doe",
   "author_email": "jdoe@email.com",
+  "github_username": "johndoe",
   "short_description": "A basic python library",
   "long_description": "Your description here",
   "license": [
     "MIT",
-    "Apache-2.0"
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "Proprietary"
+  ],
+  "project_type": [
+    "simple",
+    "full-featured",
+    "rust-backed",
+    "private",
+    "aws-cdk"
+  ],
+  "python_version_min": [
+    "3.11",
+    "3.12",
+    "3.13"
+  ],
+  "use_semantic_release": "n",
+  "include_documentation": "n",
+  "include_bdd_testing": "n",
+  "include_benchmarks": "n",
+  "include_security_scanning": "n",
+  "use_codecov": "y",
+  "ci_platforms": [
+    "ubuntu",
+    "macos",
+    "windows"
+  ],
+  "python_versions_test": [
+    "3.11",
+    "3.12",
+    "3.13",
+    "3.14"
   ]
 }

@@ -1,25 +1,31 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 'v5.0.0'
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: debug-statements
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 'v0.8.4'
+    hooks:
+      # Run the linter
+      - id: ruff
+        args: [--fix]
+      # Run the formatter
+      - id: ruff-format
+
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v1.1.1'
-    hooks:  # Related: https://stackoverflow.com/a/75003826/3858494
+    rev: 'v1.17.0'
+    hooks:
       - id: mypy
         name: mypy (python)
-        entry: poetry run mypy
+        entry: uv run mypy
         require_serial: true
         language: system
         types: [python]
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    # Ruff version.
-    rev: 'v0.0.261'
-    hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
-  - repo: https://github.com/psf/black
-    rev: '23.3.0'
-    hooks:
-      - id: black
-  - repo: https://github.com/pycqa/isort
-    rev: '5.12.0'
-    hooks:
-      - id: isort
-        name: isort (python)
+        additional_dependencies: []

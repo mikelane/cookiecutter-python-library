@@ -1,4 +1,4 @@
-"""Post generation hook for cookiecutter-pypackage-minimal."""
+"""Post generation hook for cookiecutter-python-library."""
 from __future__ import annotations
 
 import logging
@@ -17,9 +17,6 @@ logging.basicConfig(
 logger = logging.getLogger('Post Gen Project Hook')
 
 
-# TODO: If cookiecutter allows you to import from the local hooks directory,
-#  then move this function to a shared module.
-# Related: https://github.com/cookiecutter/cookiecutter/issues/824
 def stream_shell_output(command: str) -> None:
     """Stream the output of a shell command to stdout."""
     with subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE) as proc:
@@ -30,8 +27,15 @@ def stream_shell_output(command: str) -> None:
 logger.debug('Initializing git repo')
 stream_shell_output('git init')
 
-logger.debug(' Installing dependencies')
-stream_shell_output('poetry install')
+logger.debug('Syncing dependencies with uv')
+stream_shell_output('uv sync --all-extras')
 
 logger.debug('Installing pre-commit hooks')
-stream_shell_output('poetry run pre-commit install')
+stream_shell_output('uv run pre-commit install')
+
+logger.info('Project initialized successfully!')
+logger.info('Next steps:')
+logger.info('  1. cd {{cookiecutter.__project_name}}')
+logger.info('  2. uv sync  # Install dependencies')
+logger.info('  3. uv run pytest  # Run tests')
+logger.info('  4. uv run pre-commit run --all-files  # Run code quality checks')
