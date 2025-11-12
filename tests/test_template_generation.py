@@ -60,8 +60,11 @@ def test_generated_project_has_expected_structure(cookies: Cookies, context_simp
     assert (project_dir / '.gitignore').exists()
     assert (project_dir / '.pre-commit-config.yaml').exists()
 
-    # Check for package directory
-    package_dir = project_dir / 'test_library'
+    # Check for src directory and package
+    src_dir = project_dir / 'src'
+    assert src_dir.is_dir()
+
+    package_dir = src_dir / 'test_library'
     assert package_dir.is_dir()
     assert (package_dir / '__init__.py').exists()
 

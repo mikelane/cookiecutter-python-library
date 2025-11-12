@@ -45,14 +45,18 @@ def default_context() -> dict[str, Any]:
 
 
 @pytest.fixture(autouse=True)
-def _skip_hooks_for_tests(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Skip post_gen_project hook execution during tests to make them fast."""
+def _mock_subprocess_for_tests(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Mock subprocess calls during tests to avoid running git, uv, etc."""
     import subprocess
 
     original_popen = subprocess.Popen
 
     def mock_popen(*args: Any, **kwargs: Any) -> Any:
-        # Skip actual subprocess calls during tests
-        return original_popen('true', **kwargs)
+        # Skip actual subprocess calls (git, uv, pre-commit) during tests
+        # But allow the hook to run its file operations
+        cmd_str = str(args[0]) if args else ''
+        if any(x in cmd_str for x in ['git', 'uv', 'pre-commit']):
+            return original_popen('true', **kwargs)
+        return original_popen(*args, **kwargs)
 
     monkeypatch.setattr(subprocess, 'Popen', mock_popen)

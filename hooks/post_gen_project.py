@@ -4,7 +4,9 @@ from __future__ import annotations
 import logging
 import os
 import shlex
+import shutil
 import subprocess
+from pathlib import Path
 
 is_debug = os.getenv('DEBUG', '0') == '1'
 
@@ -23,6 +25,42 @@ def stream_shell_output(command: str) -> None:
         for line in iter(proc.stdout.readline, b''):
             logger.debug(line.decode('utf-8').rstrip())
 
+
+def remove_conditional_files() -> None:
+    """Remove files and directories based on cookiecutter options."""
+    project_root = Path.cwd()
+
+    # Remove docs directory if documentation is not included
+    if '{{cookiecutter.include_documentation}}' != 'y':
+        docs_dir = project_root / 'docs'
+        if docs_dir.exists():
+            logger.debug(f'Removing {docs_dir}')
+            shutil.rmtree(docs_dir)
+
+    # Remove BDD test directory if BDD testing is not included
+    if '{{cookiecutter.include_bdd_testing}}' != 'y':
+        bdd_dir = project_root / 'tests' / 'bdd'
+        if bdd_dir.exists():
+            logger.debug(f'Removing {bdd_dir}')
+            shutil.rmtree(bdd_dir)
+
+    # Remove benchmarks directory if benchmarks are not included
+    if '{{cookiecutter.include_benchmarks}}' != 'y':
+        benchmarks_dir = project_root / 'benchmarks'
+        if benchmarks_dir.exists():
+            logger.debug(f'Removing {benchmarks_dir}')
+            shutil.rmtree(benchmarks_dir)
+
+    # Remove _version.py if semantic release is not enabled
+    if '{{cookiecutter.use_semantic_release}}' != 'y':
+        version_file = project_root / 'src' / '{{cookiecutter.__package_name}}' / '_version.py'
+        if version_file.exists():
+            logger.debug(f'Removing {version_file}')
+            version_file.unlink()
+
+
+logger.debug('Removing conditional files and directories')
+remove_conditional_files()
 
 logger.debug('Initializing git repo')
 stream_shell_output('git init')
