@@ -31,15 +31,6 @@
   "include_benchmarks": "n",
   "include_security_scanning": "n",
   "use_codecov": "y",
-  "ci_platforms": [
-    "ubuntu",
-    "macos",
-    "windows"
-  ],
-  "python_versions_test": [
-    "3.11",
-    "3.12",
-    "3.13",
-    "3.14"
-  ]
+  "ci_platforms": "ubuntu,macos,windows",
+  "python_versions_test": "3.11,3.12,3.13,3.14"
 }

@@ -1,0 +1,13 @@
+# This file defines code ownership for the repository.
+# Code owners will automatically be requested for review when someone opens a pull request
+# that modifies code that they own.
+#
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owner for everything in the repo
+* @{{ cookiecutter.github_username }}
+
+# Specific ownership patterns (uncomment and modify as needed)
+# /docs/ @{{ cookiecutter.github_username }}
+# /.github/ @{{ cookiecutter.github_username }}
+# /tests/ @{{ cookiecutter.github_username }}

@@ -1,0 +1,126 @@
+name: CD
+
+on:
+{%- if cookiecutter.use_semantic_release == 'y' %}
+  push:
+    branches:
+      - main
+{%- else %}
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+{%- endif %}
+
+permissions:
+  contents: write
+  id-token: write  # Required for PyPI Trusted Publishing
+
+jobs:
+{%- if cookiecutter.use_semantic_release == 'y' %}
+  semantic-release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    concurrency: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Setup uv and Python
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: '{{ cookiecutter.python_version_min }}'
+
+      - name: Python Semantic Release
+        id: release
+        uses: python-semantic-release/python-semantic-release@v9.15.2
+        with:
+          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Publish to PyPI
+        if: steps.release.outputs.released == 'true'
+        run: uv build && uv publish
+        env:
+          UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+
+      - name: Publish to GitHub Releases
+        if: steps.release.outputs.released == 'true'
+        uses: python-semantic-release/upload-to-gh-release@main
+        with:
+          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          tag: {% raw %}${{ steps.release.outputs.tag }}{% endraw %}
+{%- else %}
+  build:
+    name: Build Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv and Python
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: '{{ cookiecutter.python_version_min }}'
+
+      - name: Build package
+        run: uv build
+
+      - name: Store distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-pypi:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/{{ cookiecutter.__package_name }}
+    permissions:
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+    steps:
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  create-github-release:
+    name: Create GitHub Release
+    needs: publish-to-pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+        run: >-
+          gh release create
+          '{% raw %}${{ github.ref_name }}{% endraw %}'
+          --repo '{% raw %}${{ github.repository }}{% endraw %}'
+          --notes ""
+
+      - name: Upload artifacts to GitHub Release
+        env:
+          GITHUB_TOKEN: {% raw %}${{ github.token }}{% endraw %}
+        run: >-
+          gh release upload
+          '{% raw %}${{ github.ref_name }}{% endraw %}' dist/**
+          --repo '{% raw %}${{ github.repository }}{% endraw %}'
+{%- endif %}

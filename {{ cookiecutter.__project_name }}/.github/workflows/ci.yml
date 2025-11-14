@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: {% raw %}${{ github.workflow }}-${{ github.ref }}{% endraw %}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv and Python
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: '{{ cookiecutter.python_version_min }}'
+
+      - name: Run ruff check
+        run: uv run ruff check .
+
+      - name: Run ruff format check
+        run: uv run ruff format --check .
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv and Python
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: '{{ cookiecutter.python_version_min }}'
+
+      - name: Run mypy
+        run: uv run mypy src tests
+
+  test:
+    name: Test Python {% raw %}${{ matrix.python-version }}{% endraw %} on {% raw %}${{ matrix.os }}{% endraw %}
+    runs-on: {% raw %}${{ matrix.os }}{% endraw %}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [
+{%- for platform in cookiecutter.ci_platforms.split(',') %}
+          {{ 'ubuntu-latest' if platform == 'ubuntu' else 'macos-latest' if platform == 'macos' else 'windows-latest' }}{{ ',' if not loop.last else '' }}
+{%- endfor %}
+        ]
+        python-version: [
+{%- for version in cookiecutter.python_versions_test.split(',') %}
+          '{{ version }}'{{ ',' if not loop.last else '' }}
+{%- endfor %}
+        ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv and Python {% raw %}${{ matrix.python-version }}{% endraw %}
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
+
+      - name: Run tests
+        run: uv run pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+{%- if cookiecutter.use_codecov == 'y' %}
+
+      - name: Upload coverage to Codecov
+        if: {% raw %}${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '{% endraw %}{{ cookiecutter.python_version_min }}{% raw %}' }}{% endraw %}
+        uses: codecov/codecov-action@v5
+        with:
+          token: {% raw %}${{ secrets.CODECOV_TOKEN }}{% endraw %}
+          files: ./coverage.xml
+          fail_ci_if_error: false
+{%- endif %}
+{%- if cookiecutter.include_documentation == 'y' %}
+
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup uv and Python
+        uses: ./.github/actions/setup-uv
+        with:
+          python-version: '{{ cookiecutter.python_version_min }}'
+
+      - name: Build docs
+        run: |
+          cd docs
+          uv run make html
+{%- endif %}
+
+  all-checks:
+    name: All Checks Pass
+    if: always()
+    needs:
+      - lint
+      - type-check
+      - test
+{%- if cookiecutter.include_documentation == 'y' %}
+      - docs
+{%- endif %}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all jobs succeeded
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: {% raw %}${{ toJSON(needs) }}{% endraw %}

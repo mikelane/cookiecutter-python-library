@@ -1,0 +1,30 @@
+version: 2
+
+updates:
+  # GitHub Actions dependencies
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+
+  # Python dependencies via pip
+  - package-ecosystem: 'pip'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    labels:
+      - 'dependencies'
+      - 'python'
+    # Group minor and patch updates together
+    groups:
+      development-dependencies:
+        dependency-type: 'development'
+      production-dependencies:
+        dependency-type: 'production'
