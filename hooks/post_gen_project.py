@@ -58,6 +58,24 @@ def remove_conditional_files() -> None:
             logger.debug(f'Removing {version_file}')
             version_file.unlink()
 
+    # Remove Rust directory and Cargo.toml if not rust-backed
+    if '{{cookiecutter.project_type}}' != 'rust-backed':
+        rust_dir = project_root / 'rust'
+        if rust_dir.exists():
+            logger.debug(f'Removing {rust_dir}')
+            shutil.rmtree(rust_dir)
+        cargo_toml = project_root / 'Cargo.toml'
+        if cargo_toml.exists():
+            logger.debug(f'Removing {cargo_toml}')
+            cargo_toml.unlink()
+
+    # Remove infrastructure directory if not aws-cdk
+    if '{{cookiecutter.project_type}}' != 'aws-cdk':
+        infra_dir = project_root / 'infrastructure'
+        if infra_dir.exists():
+            logger.debug(f'Removing {infra_dir}')
+            shutil.rmtree(infra_dir)
+
 
 logger.debug('Removing conditional files and directories')
 remove_conditional_files()

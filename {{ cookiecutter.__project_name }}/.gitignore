@@ -226,4 +226,23 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+{% if cookiecutter.project_type == 'rust-backed' %}
+### Rust
+# Rust build artifacts
+target/
+Cargo.lock
+{%- endif %}
+{% if cookiecutter.project_type == 'aws-cdk' %}
+### Node.js / CDK
+# Node modules
+node_modules/
+package-lock.json
 
+# CDK output
+cdk.out/
+*.js
+*.d.ts
+
+# TypeScript cache
+*.tsbuildinfo
+{%- endif %}
