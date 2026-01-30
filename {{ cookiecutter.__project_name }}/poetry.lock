@@ -268,14 +268,14 @@ files = [
 
 [[package]]
 name = "icontract"
-version = "2.7.2"
+version = "2.7.3"
 description = "Provide design-by-contract with informative violation messages."
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "icontract-2.7.2-py3-none-any.whl", hash = "sha256:2eb86290ef1d2d8c7af157361d419f178b3eb5b4c72a292c5722fa6fd40a1e0a"},
-    {file = "icontract-2.7.2.tar.gz", hash = "sha256:281ec16f1d09bbcca7a4227e82cd10b4d5fb291f638df77c29b7acf493dd3178"},
+    {file = "icontract-2.7.3-py3-none-any.whl", hash = "sha256:8fb0f93f71211416f214f37c01b8017fdc8c079d70159f49f0ddcc10918c14d0"},
+    {file = "icontract-2.7.3.tar.gz", hash = "sha256:df37a43d86d532407bc6b84dea29dd9f7ece794b73211769fa8a33a76b8ed145"},
 ]
 
 [package.dependencies]
@@ -1007,4 +1007,4 @@ dev = ["black (>=19.3b0) ; python_version >= \"3.6\"", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "1e5a3aa11a9c8dcb4ba115e3d1558018204b4d850a34b01e10f7b19f6ffafca2"
+content-hash = "79cb737545dffc9154abea06ef35ce23943e74d47c993f590e27b2033e432ea4"
