@@ -51,7 +51,7 @@ def test_has_project_type_field(cookiecutter_json: dict[str, Any]) -> None:
 
 def test_project_type_has_valid_choices(cookiecutter_json: dict[str, Any]) -> None:
     """The project_type field contains the expected choices."""
-    expected_choices = ['pure-python', 'rust-backed', 'aws-cdk']
+    expected_choices = ['library', 'cli-app', 'tui-app', 'rust-backed', 'aws-cdk']
     project_type = cookiecutter_json['project_type']
 
     assert isinstance(project_type, list), 'project_type should be a list of choices'

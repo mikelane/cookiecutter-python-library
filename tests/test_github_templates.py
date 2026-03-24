@@ -21,7 +21,7 @@ def context_simple() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'pure-python',
+        'project_type': 'library',
         'python_version_min': '3.11',
         'use_semantic_release': 'n',
         'include_documentation': 'n',

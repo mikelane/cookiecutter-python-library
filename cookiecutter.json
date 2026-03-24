@@ -19,7 +19,9 @@
     "package"
   ],
   "project_type": [
-    "pure-python",
+    "library",
+    "cli-app",
+    "tui-app",
     "rust-backed",
     "aws-cdk"
   ],

@@ -63,6 +63,26 @@ def remove_conditional_files() -> None:
             logger.debug(f'Removing {version_file}')
             version_file.unlink()
 
+    # Remove app-specific files for library projects
+    if '{{cookiecutter.project_type}}' not in ('cli-app', 'tui-app'):
+        for app_file in ('cli.py', '__main__.py'):
+            file_path = project_root / 'src' / '{{cookiecutter.__package_name}}' / app_file
+            if file_path.exists():
+                logger.debug(f'Removing {file_path}')
+                file_path.unlink()
+        for app_file in ('Dockerfile', '.env.example'):
+            file_path = project_root / app_file
+            if file_path.exists():
+                logger.debug(f'Removing {file_path}')
+                file_path.unlink()
+
+    # Remove TUI file if not tui-app
+    if '{{cookiecutter.project_type}}' != 'tui-app':
+        tui_file = project_root / 'src' / '{{cookiecutter.__package_name}}' / 'tui.py'
+        if tui_file.exists():
+            logger.debug(f'Removing {tui_file}')
+            tui_file.unlink()
+
     # Remove Rust directory and Cargo.toml if not rust-backed
     if '{{cookiecutter.project_type}}' != 'rust-backed':
         rust_dir = project_root / 'rust'

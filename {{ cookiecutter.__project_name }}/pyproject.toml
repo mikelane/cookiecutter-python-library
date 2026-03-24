@@ -17,6 +17,11 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
 ]
+{%- if cookiecutter.project_type in ['cli-app', 'tui-app'] %}
+
+[project.scripts]
+{{cookiecutter.__package_name}} = "{{cookiecutter.__package_name}}.cli:app"
+{%- endif %}
 
 dependencies = [
 {%- if cookiecutter.include_runtime_contracts == 'y' %}
@@ -28,6 +33,12 @@ dependencies = [
 {%- endif %}
     "loguru>=0.7.3",
     "pydantic>=2.12.5",
+{%- if cookiecutter.project_type in ['cli-app', 'tui-app'] %}
+    "typer>=0.15.3",
+{%- endif %}
+{%- if cookiecutter.project_type == 'tui-app' %}
+    "textual>=3.2.0",
+{%- endif %}
 ]
 
 [project.optional-dependencies]

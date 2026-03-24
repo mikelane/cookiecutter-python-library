@@ -22,7 +22,7 @@ def context_simple() -> dict[str, Any]:
         'long_description': 'A longer description',
         'license': 'MIT',
         'project_intent': 'prototype',
-        'project_type': 'pure-python',
+        'project_type': 'library',
         'python_version_min': '3.11',
         'include_runtime_contracts': 'n',
         'include_property_testing': 'n',

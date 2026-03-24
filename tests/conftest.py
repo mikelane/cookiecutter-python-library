@@ -43,7 +43,7 @@ def default_context() -> dict[str, Any]:
         'long_description': 'A longer description of the test library',
         'license': 'MIT',
         'project_intent': 'prototype',
-        'project_type': 'pure-python',
+        'project_type': 'library',
         'include_runtime_contracts': 'n',
         'include_property_testing': 'n',
         'include_mutation_testing': 'n',

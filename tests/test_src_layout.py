@@ -20,7 +20,7 @@ def context_simple() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'pure-python',
+        'project_type': 'library',
         'python_version_min': '3.11',
         'use_semantic_release': 'n',
         'include_documentation': 'n',
@@ -142,7 +142,7 @@ def test_different_project_names_generate_correct_package_paths(cookies: Cookies
             'short_description': 'Test',
             'long_description': 'Test description',
             'license': 'MIT',
-            'project_type': 'pure-python',
+            'project_type': 'library',
             'python_version_min': '3.11',
         }
 
