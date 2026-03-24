@@ -94,9 +94,7 @@ jobs:
           python-version: '{{ cookiecutter.python_version_min }}'
 
       - name: Build docs
-        run: |
-          cd docs
-          uv run make html
+        run: uv run mkdocs build --strict
 {%- endif %}
 
   all-checks:

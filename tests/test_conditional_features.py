@@ -1,4 +1,5 @@
 """Tests for conditional features based on cookiecutter configuration."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -42,6 +43,8 @@ def test_documentation_directory_not_created_when_disabled(cookies: Cookies, bas
     assert result.exit_code == 0
     docs_dir = result.project_path / 'docs'
     assert not docs_dir.exists()
+    mkdocs_yml = result.project_path / 'mkdocs.yml'
+    assert not mkdocs_yml.exists()
 
 
 def test_bdd_directory_created_when_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
@@ -84,9 +87,7 @@ def test_benchmarks_directory_not_created_when_disabled(cookies: Cookies, base_c
     assert not benchmarks_dir.exists()
 
 
-def test_unit_and_integration_test_directories_always_created(
-    cookies: Cookies, base_context: dict[str, Any]
-) -> None:
+def test_unit_and_integration_test_directories_always_created(cookies: Cookies, base_context: dict[str, Any]) -> None:
     """Unit and integration test directories are always created regardless of options."""
     result = cookies.bake(extra_context=base_context)
 
@@ -98,9 +99,7 @@ def test_unit_and_integration_test_directories_always_created(
     assert integration_dir.is_dir()
 
 
-def test_version_file_created_when_semantic_release_enabled(
-    cookies: Cookies, base_context: dict[str, Any]
-) -> None:
+def test_version_file_created_when_semantic_release_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
     """When use_semantic_release is enabled, _version.py is created."""
     context = base_context | {'use_semantic_release': 'y'}
     result = cookies.bake(extra_context=context)
@@ -180,8 +179,8 @@ def test_bdd_dependencies_not_added_when_bdd_disabled(cookies: Cookies, base_con
     assert not any('pytest-bdd' in dep for dep in test_deps)
 
 
-def test_sphinx_dependencies_added_when_docs_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
-    """When documentation is enabled, Sphinx dependencies are added."""
+def test_mkdocs_dependencies_added_when_docs_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When documentation is enabled, MkDocs Material dependencies are added."""
     import tomllib
 
     context = base_context | {'include_documentation': 'y'}
@@ -195,11 +194,11 @@ def test_sphinx_dependencies_added_when_docs_enabled(cookies: Cookies, base_cont
     # Check for docs optional dependency group
     assert 'docs' in config['project']['optional-dependencies']
     docs_deps = config['project']['optional-dependencies']['docs']
-    assert any('sphinx' in dep.lower() for dep in docs_deps)
+    assert any('mkdocs-material' in dep.lower() for dep in docs_deps)
 
 
-def test_sphinx_dependencies_not_added_when_docs_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
-    """When documentation is disabled, no Sphinx dependencies are added."""
+def test_mkdocs_dependencies_not_added_when_docs_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When documentation is disabled, no MkDocs dependencies are added."""
     import tomllib
 
     context = base_context | {'include_documentation': 'n'}
@@ -231,9 +230,7 @@ def test_pytest_benchmark_added_when_benchmarks_enabled(cookies: Cookies, base_c
     assert any('pytest-benchmark' in dep for dep in test_deps)
 
 
-def test_pytest_benchmark_not_added_when_benchmarks_disabled(
-    cookies: Cookies, base_context: dict[str, Any]
-) -> None:
+def test_pytest_benchmark_not_added_when_benchmarks_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
     """When benchmarks are disabled, pytest-benchmark is not added."""
     import tomllib
 

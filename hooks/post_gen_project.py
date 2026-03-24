@@ -1,4 +1,5 @@
 """Post generation hook for cookiecutter-python-library."""
+
 from __future__ import annotations
 
 import logging
@@ -36,6 +37,10 @@ def remove_conditional_files() -> None:
         if docs_dir.exists():
             logger.debug(f'Removing {docs_dir}')
             shutil.rmtree(docs_dir)
+        mkdocs_yml = project_root / 'mkdocs.yml'
+        if mkdocs_yml.exists():
+            logger.debug(f'Removing {mkdocs_yml}')
+            mkdocs_yml.unlink()
 
     # Remove BDD test directory if BDD testing is not included
     if '{{cookiecutter.include_bdd_testing}}' != 'y':

@@ -1,0 +1,47 @@
+site_name: '{{cookiecutter.project_name}}'
+site_description: '{{cookiecutter.short_description}}'
+site_url: 'https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.__project_name}}/'
+repo_url: 'https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_name}}'
+repo_name: '{{cookiecutter.github_username}}/{{cookiecutter.__project_name}}'
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - navigation.sections
+    - navigation.expand
+    - search.suggest
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - admonition
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
