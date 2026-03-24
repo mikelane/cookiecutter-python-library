@@ -1,4 +1,5 @@
 """Pre-Generate Project Hook."""
+
 from __future__ import annotations
 
 import logging

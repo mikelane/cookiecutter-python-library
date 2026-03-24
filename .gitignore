@@ -1,5 +1,7 @@
 .idea
 .python-version
+.claude/
+CLAUDE.local.md
 
 ### Python template
 # Byte-compiled / optimized / DLL files
