@@ -1,4 +1,5 @@
 """Tests for aws-cdk project type generation."""
+
 from __future__ import annotations
 
 import json
@@ -210,7 +211,7 @@ def it_excludes_infrastructure_directory_for_non_cdk_projects(template_dir: Path
         'author_email': 'test@example.com',
         'short_description': 'A simple test library',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
 

@@ -1,4 +1,5 @@
 """Tests for src/ layout implementation in generated projects."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -19,7 +20,7 @@ def context_simple() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
         'use_semantic_release': 'n',
         'include_documentation': 'n',
@@ -101,9 +102,7 @@ def test_tests_import_from_src_layout(cookies: Cookies, context_simple: dict[str
     assert 'from test_library.main import' in content
 
 
-def test_pyproject_toml_does_not_need_packages_configuration(
-    cookies: Cookies, context_simple: dict[str, Any]
-) -> None:
+def test_pyproject_toml_does_not_need_packages_configuration(cookies: Cookies, context_simple: dict[str, Any]) -> None:
     """The pyproject.toml relies on hatchling's automatic src/ discovery."""
     result = cookies.bake(extra_context=context_simple)
     assert result.exit_code == 0
@@ -143,7 +142,7 @@ def test_different_project_names_generate_correct_package_paths(cookies: Cookies
             'short_description': 'Test',
             'long_description': 'Test description',
             'license': 'MIT',
-            'project_type': 'simple',
+            'project_type': 'pure-python',
             'python_version_min': '3.11',
         }
 

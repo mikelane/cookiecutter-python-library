@@ -1,4 +1,5 @@
 """Tests for cookiecutter.json configuration."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,6 +30,20 @@ def test_has_required_basic_fields(cookiecutter_json: dict[str, Any]) -> None:
         assert field in cookiecutter_json, f'Missing required field: {field}'
 
 
+def test_has_project_intent_field(cookiecutter_json: dict[str, Any]) -> None:
+    """The cookiecutter.json contains a project_intent field."""
+    assert 'project_intent' in cookiecutter_json
+
+
+def test_project_intent_has_valid_choices(cookiecutter_json: dict[str, Any]) -> None:
+    """The project_intent field contains the expected choices."""
+    expected_choices = ['prototype', 'project', 'package']
+    project_intent = cookiecutter_json['project_intent']
+
+    assert isinstance(project_intent, list), 'project_intent should be a list of choices'
+    assert set(project_intent) == set(expected_choices), f'Expected choices {expected_choices}, got {project_intent}'
+
+
 def test_has_project_type_field(cookiecutter_json: dict[str, Any]) -> None:
     """The cookiecutter.json contains a project_type field."""
     assert 'project_type' in cookiecutter_json
@@ -36,10 +51,9 @@ def test_has_project_type_field(cookiecutter_json: dict[str, Any]) -> None:
 
 def test_project_type_has_valid_choices(cookiecutter_json: dict[str, Any]) -> None:
     """The project_type field contains the expected choices."""
-    expected_choices = ['simple', 'full-featured', 'rust-backed', 'private', 'aws-cdk']
+    expected_choices = ['pure-python', 'rust-backed', 'aws-cdk']
     project_type = cookiecutter_json['project_type']
 
-    # Should be a list of choices
     assert isinstance(project_type, list), 'project_type should be a list of choices'
     assert set(project_type) == set(expected_choices), f'Expected choices {expected_choices}, got {project_type}'
 
@@ -61,12 +75,17 @@ def test_python_version_min_has_valid_choices(cookiecutter_json: dict[str, Any])
 def test_has_feature_flags(cookiecutter_json: dict[str, Any]) -> None:
     """The cookiecutter.json contains feature flag fields."""
     feature_flags = [
-        'use_semantic_release',
-        'include_documentation',
+        'include_runtime_contracts',
+        'include_property_testing',
+        'include_mutation_testing',
+        'include_dependency_injection',
         'include_bdd_testing',
         'include_benchmarks',
+        'include_documentation',
+        'use_semantic_release',
         'include_security_scanning',
         'use_codecov',
+        'publish_to_pypi',
     ]
     for flag in feature_flags:
         assert flag in cookiecutter_json, f'Missing feature flag: {flag}'

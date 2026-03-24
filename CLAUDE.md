@@ -18,7 +18,7 @@ uv run mypy hooks tests                    # Type check (strict mode)
 
 ## Template Architecture
 
-- **cookiecutter.json**: All template variables and choices (5 project types, feature toggles)
+- **cookiecutter.json**: Template variables with two dimensions — `project_intent` (prototype/project/package) controls dependency defaults, `project_type` (pure-python/rust-backed/aws-cdk) controls build system. Feature flags compute defaults from intent but can be overridden.
 - **hooks/pre_gen_project.py**: Validates project_name before generation
 - **hooks/post_gen_project.py**: Removes conditional dirs/files based on choices, runs `git init` + `uv sync` + `pre-commit install`
 - **tests/**: Uses `pytest-cookies` to test template generation for each project type and feature combination

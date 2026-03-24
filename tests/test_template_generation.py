@@ -1,4 +1,5 @@
 """Integration tests for template generation using pytest-cookies."""
+
 from __future__ import annotations
 
 import tomllib
@@ -20,14 +21,20 @@ def context_simple() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_intent': 'prototype',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
+        'include_runtime_contracts': 'n',
+        'include_property_testing': 'n',
+        'include_mutation_testing': 'n',
+        'include_dependency_injection': 'n',
         'use_semantic_release': 'n',
         'include_documentation': 'n',
         'include_bdd_testing': 'n',
         'include_benchmarks': 'n',
         'include_security_scanning': 'n',
         'use_codecov': 'y',
+        'publish_to_pypi': 'n',
         'ci_platforms': 'ubuntu',
         'python_versions_test': '3.11',
     }

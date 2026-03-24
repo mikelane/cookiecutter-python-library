@@ -39,11 +39,13 @@ jobs:
         with:
           github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
+{%- if cookiecutter.publish_to_pypi == 'y' %}
       - name: Publish to PyPI
         if: steps.release.outputs.released == 'true'
         run: uv build && uv publish
         env:
           UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+{%- endif %}
 
       - name: Publish to GitHub Releases
         if: steps.release.outputs.released == 'true'
@@ -72,6 +74,7 @@ jobs:
           name: python-package-distributions
           path: dist/
 
+{%- if cookiecutter.publish_to_pypi == 'y' %}
   publish-to-pypi:
     name: Publish to PyPI
     needs: build
@@ -90,10 +93,15 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+{%- endif %}
 
   create-github-release:
     name: Create GitHub Release
+{%- if cookiecutter.publish_to_pypi == 'y' %}
     needs: publish-to-pypi
+{%- else %}
+    needs: build
+{%- endif %}
     runs-on: ubuntu-latest
     permissions:
       contents: write

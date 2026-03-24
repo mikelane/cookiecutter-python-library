@@ -20,8 +20,14 @@ def base_context() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_intent': 'prototype',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
+        'include_runtime_contracts': 'n',
+        'include_property_testing': 'n',
+        'include_mutation_testing': 'n',
+        'include_dependency_injection': 'n',
+        'publish_to_pypi': 'n',
     }
 
 
@@ -245,3 +251,133 @@ def test_pytest_benchmark_not_added_when_benchmarks_disabled(cookies: Cookies, b
     # Check test dependencies do not include pytest-benchmark
     test_deps = config['project']['optional-dependencies']['test']
     assert not any('pytest-benchmark' in dep for dep in test_deps)
+
+
+def test_runtime_contracts_deps_included_when_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When runtime contracts are enabled, beartype and icontract are in dependencies."""
+    import tomllib
+
+    context = base_context | {'include_runtime_contracts': 'y'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    deps = config['project']['dependencies']
+    assert any('beartype' in dep for dep in deps)
+    assert any('icontract' in dep for dep in deps)
+
+
+def test_runtime_contracts_deps_excluded_when_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When runtime contracts are disabled, beartype and icontract are not in dependencies."""
+    import tomllib
+
+    context = base_context | {'include_runtime_contracts': 'n'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    deps = config['project']['dependencies']
+    assert not any('beartype' in dep for dep in deps)
+    assert not any('icontract' in dep for dep in deps)
+
+
+def test_property_testing_deps_included_when_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When property testing is enabled, hypothesis is in test dependencies."""
+    import tomllib
+
+    context = base_context | {'include_property_testing': 'y'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    test_deps = config['project']['optional-dependencies']['test']
+    assert any('hypothesis' in dep for dep in test_deps)
+
+
+def test_property_testing_deps_excluded_when_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When property testing is disabled, hypothesis is not in test dependencies."""
+    import tomllib
+
+    context = base_context | {'include_property_testing': 'n'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    test_deps = config['project']['optional-dependencies']['test']
+    assert not any('hypothesis' in dep for dep in test_deps)
+
+
+def test_mutation_testing_deps_included_when_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When mutation testing is enabled, pytest-gremlins is in test dependencies."""
+    import tomllib
+
+    context = base_context | {'include_mutation_testing': 'y'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    test_deps = config['project']['optional-dependencies']['test']
+    assert any('pytest-gremlins' in dep for dep in test_deps)
+
+
+def test_mutation_testing_deps_excluded_when_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When mutation testing is disabled, pytest-gremlins is not in test dependencies."""
+    import tomllib
+
+    context = base_context | {'include_mutation_testing': 'n'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    test_deps = config['project']['optional-dependencies']['test']
+    assert not any('pytest-gremlins' in dep for dep in test_deps)
+
+
+def test_dependency_injection_deps_included_when_enabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When dependency injection is enabled, dioxide is in dependencies."""
+    import tomllib
+
+    context = base_context | {'include_dependency_injection': 'y'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    deps = config['project']['dependencies']
+    assert any('dioxide' in dep for dep in deps)
+
+
+def test_dependency_injection_deps_excluded_when_disabled(cookies: Cookies, base_context: dict[str, Any]) -> None:
+    """When dependency injection is disabled, dioxide is not in dependencies."""
+    import tomllib
+
+    context = base_context | {'include_dependency_injection': 'n'}
+    result = cookies.bake(extra_context=context)
+
+    assert result.exit_code == 0
+
+    pyproject_path = result.project_path / 'pyproject.toml'
+    config = tomllib.loads(pyproject_path.read_text())
+
+    deps = config['project']['dependencies']
+    assert not any('dioxide' in dep for dep in deps)

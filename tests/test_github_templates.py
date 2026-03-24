@@ -1,4 +1,5 @@
 """Tests for GitHub templates (issues, PR, CODEOWNERS, dependabot)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -20,7 +21,7 @@ def context_simple() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
         'use_semantic_release': 'n',
         'include_documentation': 'n',
@@ -44,9 +45,7 @@ class TestIssueTemplates:
         template_path = result.project_path / '.github' / 'ISSUE_TEMPLATE' / 'bug_report.md'
         assert template_path.exists()
 
-    def test_feature_request_template_exists(
-        self, cookies: Cookies, context_simple: dict[str, Any]
-    ) -> None:
+    def test_feature_request_template_exists(self, cookies: Cookies, context_simple: dict[str, Any]) -> None:
         """The feature request issue template is generated."""
         result = cookies.bake(extra_context=context_simple)
         assert result.exit_code == 0
@@ -59,9 +58,7 @@ class TestIssueTemplates:
         result = cookies.bake(extra_context=context_simple)
         assert result.exit_code == 0
 
-        template_path = (
-            result.project_path / '.github' / 'ISSUE_TEMPLATE' / 'security_vulnerability.md'
-        )
+        template_path = result.project_path / '.github' / 'ISSUE_TEMPLATE' / 'security_vulnerability.md'
         assert template_path.exists()
 
 
@@ -135,9 +132,7 @@ class TestDependabot:
         assert 'version' in config
         assert 'updates' in config
 
-    def test_dependabot_includes_github_actions(
-        self, cookies: Cookies, context_simple: dict[str, Any]
-    ) -> None:
+    def test_dependabot_includes_github_actions(self, cookies: Cookies, context_simple: dict[str, Any]) -> None:
         """The dependabot config includes GitHub Actions updates."""
         result = cookies.bake(extra_context=context_simple)
         assert result.exit_code == 0

@@ -19,9 +19,13 @@ classifiers = [
 ]
 
 dependencies = [
+{%- if cookiecutter.include_runtime_contracts == 'y' %}
     "beartype>=0.22.9",
-    "dioxide>=2.0.1",
     "icontract>=2.7.3",
+{%- endif %}
+{%- if cookiecutter.include_dependency_injection == 'y' %}
+    "dioxide>=2.0.1",
+{%- endif %}
     "loguru>=0.7.3",
     "pydantic>=2.12.5",
 ]
@@ -30,8 +34,12 @@ dependencies = [
 test = [
     "pytest>=9.0.2",
     "pytest-cov>=7.1.0",
+{%- if cookiecutter.include_mutation_testing == 'y' %}
     "pytest-gremlins>=1.6.0",
+{%- endif %}
+{%- if cookiecutter.include_property_testing == 'y' %}
     "hypothesis>=6.151.9",
+{%- endif %}
 {%- if cookiecutter.include_bdd_testing == 'y' %}
     "pytest-bdd>=8.1.0",
 {%- endif %}

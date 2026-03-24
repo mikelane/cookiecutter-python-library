@@ -1,4 +1,5 @@
 """Tests for rust-backed project type generation."""
+
 from __future__ import annotations
 
 import json
@@ -102,7 +103,7 @@ def it_excludes_rust_directory_for_non_rust_backed_projects(template_dir: Path, 
         'author_email': 'test@example.com',
         'short_description': 'A simple test library',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
 
@@ -175,7 +176,9 @@ def it_configures_release_profile_for_optimal_performance(template_dir: Path, te
     assert 'lto' in cargo_content
 
 
-def it_includes_maturin_in_dev_dependencies_for_rust_backed_projects(template_dir: Path, temp_project_dir: Path) -> None:
+def it_includes_maturin_in_dev_dependencies_for_rust_backed_projects(
+    template_dir: Path, temp_project_dir: Path
+) -> None:
     """It includes maturin in dev dependencies for local development."""
     context = {
         'project_name': 'Rust Test Library',

@@ -1,4 +1,5 @@
 """Pytest configuration and fixtures for cookiecutter template tests."""
+
 from __future__ import annotations
 
 import json
@@ -41,6 +42,13 @@ def default_context() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description of the test library',
         'license': 'MIT',
+        'project_intent': 'prototype',
+        'project_type': 'pure-python',
+        'include_runtime_contracts': 'n',
+        'include_property_testing': 'n',
+        'include_mutation_testing': 'n',
+        'include_dependency_injection': 'n',
+        'publish_to_pypi': 'n',
     }
 
 

@@ -1,4 +1,5 @@
 """Tests for uv-based pyproject.toml generation."""
+
 from __future__ import annotations
 
 import tomllib
@@ -11,7 +12,7 @@ def test_generated_pyproject_does_not_use_poetry(cookies: Cookies) -> None:
     """The generated pyproject.toml uses uv, not Poetry."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)
@@ -29,7 +30,7 @@ def test_generated_pyproject_uses_hatchling(cookies: Cookies) -> None:
     """The generated pyproject.toml uses hatchling as build backend."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)
@@ -52,7 +53,7 @@ def test_generated_pyproject_uses_pep621_metadata(cookies: Cookies) -> None:
         'author_email': 'test@example.com',
         'short_description': 'A test library',
         'python_version_min': '3.11',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
     }
     result = cookies.bake(extra_context=context)
     assert result.exit_code == 0
@@ -73,7 +74,7 @@ def test_generated_pyproject_has_optional_dependencies(cookies: Cookies) -> None
     """The generated pyproject.toml has optional dependency groups."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)
@@ -103,7 +104,7 @@ def test_generated_pyproject_only_uses_ruff_not_black(cookies: Cookies) -> None:
     """The generated pyproject.toml only has Ruff config, not Black or isort."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)
@@ -125,7 +126,7 @@ def test_generated_ruff_config_has_format_section(cookies: Cookies) -> None:
     """The generated Ruff config includes format section."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)
@@ -148,7 +149,7 @@ def test_generated_ruff_config_selects_all_rules(cookies: Cookies) -> None:
     """The generated Ruff config selects ALL rules as baseline."""
     context = {
         'project_name': 'Test Library',
-        'project_type': 'simple',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
     }
     result = cookies.bake(extra_context=context)

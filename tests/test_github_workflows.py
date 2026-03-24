@@ -1,4 +1,5 @@
 """Tests for GitHub Actions workflow generation."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -20,14 +21,20 @@ def context_simple_ci() -> dict[str, Any]:
         'short_description': 'A test library',
         'long_description': 'A longer description',
         'license': 'MIT',
-        'project_type': 'simple',
+        'project_intent': 'prototype',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
+        'include_runtime_contracts': 'n',
+        'include_property_testing': 'n',
+        'include_mutation_testing': 'n',
+        'include_dependency_injection': 'n',
         'use_semantic_release': 'n',
         'include_documentation': 'n',
         'include_bdd_testing': 'n',
         'include_benchmarks': 'n',
         'include_security_scanning': 'n',
         'use_codecov': 'y',
+        'publish_to_pypi': 'y',
         'ci_platforms': 'ubuntu',
         'python_versions_test': '3.11,3.12',
     }
@@ -35,7 +42,7 @@ def context_simple_ci() -> dict[str, Any]:
 
 @pytest.fixture
 def context_full_featured() -> dict[str, Any]:
-    """Return context for a full-featured project with all bells and whistles."""
+    """Return context for a package project with all bells and whistles."""
     return {
         'project_name': 'Full Featured Library',
         'author_name': 'Test Author',
@@ -44,14 +51,20 @@ def context_full_featured() -> dict[str, Any]:
         'short_description': 'A full-featured library',
         'long_description': 'A comprehensive description',
         'license': 'MIT',
-        'project_type': 'full-featured',
+        'project_intent': 'package',
+        'project_type': 'pure-python',
         'python_version_min': '3.11',
+        'include_runtime_contracts': 'y',
+        'include_property_testing': 'y',
+        'include_mutation_testing': 'y',
+        'include_dependency_injection': 'n',
         'use_semantic_release': 'y',
         'include_documentation': 'y',
         'include_bdd_testing': 'y',
         'include_benchmarks': 'y',
         'include_security_scanning': 'y',
         'use_codecov': 'y',
+        'publish_to_pypi': 'y',
         'ci_platforms': 'ubuntu,macos,windows',
         'python_versions_test': '3.11,3.12,3.13',
     }
@@ -117,9 +130,7 @@ class TestCIWorkflowGeneration:
         steps_text = str(type_check_job['steps'])
         assert 'mypy' in steps_text.lower()
 
-    def test_ci_workflow_has_test_job_with_matrix(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_ci_workflow_has_test_job_with_matrix(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The CI workflow has a test job with matrix strategy."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -181,9 +192,7 @@ class TestCIWorkflowGeneration:
         assert 'macos' in platforms_str
         assert 'windows' in platforms_str
 
-    def test_ci_workflow_has_all_checks_gate_job(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_ci_workflow_has_all_checks_gate_job(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The CI workflow has an all-checks gate job that depends on other jobs."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -200,9 +209,7 @@ class TestCIWorkflowGeneration:
         assert 'type-check' in needs
         assert 'test' in needs
 
-    def test_ci_workflow_uses_setup_uv_action(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_ci_workflow_uses_setup_uv_action(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The CI workflow uses the setup-uv composite action."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -236,14 +243,20 @@ class TestCIWorkflowGeneration:
             'short_description': 'A test library',
             'long_description': 'A longer description',
             'license': 'MIT',
-            'project_type': 'simple',
+            'project_intent': 'prototype',
+            'project_type': 'pure-python',
             'python_version_min': '3.11',
+            'include_runtime_contracts': 'n',
+            'include_property_testing': 'n',
+            'include_mutation_testing': 'n',
+            'include_dependency_injection': 'n',
             'use_semantic_release': 'n',
             'include_documentation': 'n',
             'include_bdd_testing': 'n',
             'include_benchmarks': 'n',
             'include_security_scanning': 'n',
             'use_codecov': 'n',
+            'publish_to_pypi': 'n',
             'ci_platforms': 'ubuntu',
             'python_versions_test': '3.11',
         }
@@ -271,9 +284,7 @@ class TestCIWorkflowGeneration:
         all_checks_needs = workflow['jobs']['all-checks']['needs']
         assert 'docs' in all_checks_needs
 
-    def test_ci_workflow_no_docs_job_when_disabled(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_ci_workflow_no_docs_job_when_disabled(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The CI workflow does not include a docs job when include_documentation is n."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -363,9 +374,7 @@ class TestSetupUVCompositeAction:
         action_file = result.project_path / '.github' / 'actions' / 'setup-uv' / 'action.yml'
         assert action_file.exists()
 
-    def test_setup_uv_action_is_valid_yaml(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_setup_uv_action_is_valid_yaml(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The setup-uv action is valid YAML."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -393,9 +402,7 @@ class TestSetupUVCompositeAction:
         assert 'inputs' in action
         assert 'python-version' in action['inputs']
 
-    def test_setup_uv_action_installs_uv(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_setup_uv_action_installs_uv(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The setup-uv action installs uv."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
@@ -407,9 +414,7 @@ class TestSetupUVCompositeAction:
         action_str = str(action)
         assert 'uv' in action_str.lower()
 
-    def test_setup_uv_action_caches_dependencies(
-        self, cookies: Cookies, context_simple_ci: dict[str, Any]
-    ) -> None:
+    def test_setup_uv_action_caches_dependencies(self, cookies: Cookies, context_simple_ci: dict[str, Any]) -> None:
         """The setup-uv action caches dependencies."""
         result = cookies.bake(extra_context=context_simple_ci)
         assert result.exit_code == 0
