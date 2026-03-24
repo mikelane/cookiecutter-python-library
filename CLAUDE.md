@@ -41,3 +41,4 @@ uv run mypy hooks tests                    # Type check (strict mode)
 - Template `README.md` still references poetry commands instead of uv
 - `include_security_scanning` option exists but has no CI implementation yet
 - AWS CDK project type has minimal infrastructure scaffolding
+- Two pre-existing test failures: `ci_platforms` and `python_versions_test` are CSV strings in cookiecutter.json but tests expect lists
