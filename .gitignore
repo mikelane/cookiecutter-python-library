@@ -2,6 +2,7 @@
 .python-version
 .claude/
 CLAUDE.local.md
+docs/internal/
 
 ### Python template
 # Byte-compiled / optimized / DLL files
