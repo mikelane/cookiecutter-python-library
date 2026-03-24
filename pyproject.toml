@@ -8,20 +8,20 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "cookiecutter>=2.6.0",
+    "cookiecutter>=2.7.1",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.1.0",
     "pytest-cookies>=0.7.0",
-    "pyyaml>=6.0",
+    "pyyaml>=6.0.3",
 ]
 dev = [
-    "mypy>=1.17.0",
-    "ruff>=0.8.0",
-    "pre-commit>=4.0.0",
+    "mypy>=1.19.1",
+    "ruff>=0.15.7",
+    "pre-commit>=4.5.1",
 ]
 
 [build-system]
@@ -32,7 +32,7 @@ build-backend = "hatchling.build"
 packages = ["hooks"]
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "9.0"
 addopts = [
     "-ra",
     "-vvv",

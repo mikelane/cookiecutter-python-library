@@ -19,37 +19,39 @@ classifiers = [
 ]
 
 dependencies = [
-    "beartype>=0.18.0",
-    "icontract>=2.6.4",
-    "loguru>=0.7.2",
-    "pydantic>=2.10.0",
+    "beartype>=0.22.9",
+    "dioxide>=2.0.1",
+    "icontract>=2.7.3",
+    "loguru>=0.7.3",
+    "pydantic>=2.12.5",
 ]
 
 [project.optional-dependencies]
 test = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
-    "hypothesis>=6.0.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.1.0",
+    "pytest-gremlins>=1.6.0",
+    "hypothesis>=6.151.9",
 {%- if cookiecutter.include_bdd_testing == 'y' %}
-    "pytest-bdd>=7.0.0",
+    "pytest-bdd>=8.1.0",
 {%- endif %}
 {%- if cookiecutter.include_benchmarks == 'y' %}
-    "pytest-benchmark>=4.0.0",
+    "pytest-benchmark>=5.2.3",
 {%- endif %}
 ]
 dev = [
-    "mypy>=1.17.0",
-    "ruff>=0.8.0",
-    "pre-commit>=4.0.0",
+    "mypy>=1.19.1",
+    "ruff>=0.15.7",
+    "pre-commit>=4.5.1",
 {%- if cookiecutter.project_type == 'rust-backed' %}
-    "maturin>=1.0,<2.0",
+    "maturin>=1.12.6,<2.0",
 {%- endif %}
 ]
 {%- if cookiecutter.include_documentation == 'y' %}
 docs = [
-    "sphinx>=7.0.0",
-    "sphinx-rtd-theme>=2.0.0",
-    "myst-parser>=2.0.0",
+    "sphinx>=9.1.0",
+    "sphinx-rtd-theme>=3.1.0",
+    "myst-parser>=5.0.0",
 ]
 {%- endif %}
 
@@ -69,7 +71,7 @@ build-backend = "hatchling.build"
 {%- endif %}
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "9.0"
 addopts = [
     "-ra",
     "-vvv",
