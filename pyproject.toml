@@ -13,7 +13,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
     "pytest-cov>=7.1.0",
     "pytest-cookies>=0.7.0",
     "pyyaml>=6.0.3",
